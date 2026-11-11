@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111a2e" />
+    <meta name="description" content="A clean, responsive transport management workspace." />
+    <title>Maargo Logistics Solution</title>
+    <script>
+      try {
+        const theme = localStorage.getItem("haulflow.theme.v1");
+        if (["light", "gray", "dark"].includes(theme)) document.documentElement.dataset.theme = theme;
+      } catch (error) {
+        console.warn("Saved appearance preference could not be read.", error);
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["DM Sans", "sans-serif"],
+              display: ["Manrope", "sans-serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <div class="app-shell min-h-screen">
+      <div class="mobile-scrim" id="mobile-scrim"></div>
+      <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" data-page="dashboard" aria-label="Haulflow home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none"><path d="M4 24.5h16.5l3.2-9H12.4L9 24.5Zm0 0-1.5 4.2h19.1l1.6-4.2m-14-9L16 8h12l-3.6 7.5M28 8h4M8 28.7a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Zm11.8 0a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="brand-copy"><strong>maargo</strong><small>Logistics Solution</small></span>
+        </a>
+        <div class="workspace-switch">
+          <span class="workspace-avatar">H</span>
+          <span class="workspace-copy"><strong>My workspace</strong><small>Personal account</small></span>
+          <svg class="workspace-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+        </div>
+        <nav id="sidebar-nav" class="sidebar-nav"></nav>
+        <div class="sidebar-bottom">
+          <button class="help-link" id="help-button" type="button">
+            <span class="help-icon">?</span><span>Help &amp; support</span>
+          </button>
+          <div class="account-card">
+            <span class="account-avatar">YO</span>
+            <span class="account-copy"><strong>Your account</strong><small>Frontend preview</small></span>
+            <button class="account-menu" id="account-menu" type="button" aria-label="Account information">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="4" cy="10" r="1"/><circle cx="10" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <button class="icon-button mobile-menu-button" id="mobile-menu-button" type="button" aria-label="Open navigation">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+          <div class="breadcrumbs" id="breadcrumbs"></div>
+          <div class="topbar-actions">
+            <label class="global-search">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.4"/><path d="m12.5 12.5 4 4"/></svg>
+              <input id="global-search" type="search" placeholder="Search anything..." aria-label="Search records" />
+              <kbd>⌘ K</kbd>
+            </label>
+            <div class="theme-picker">
+              <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Appearance: Light" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+              </button>
+              <div class="theme-menu" id="theme-menu" role="menu" aria-label="Choose appearance" hidden>
+                <p class="theme-menu-title">Appearance</p>
+                <button type="button" class="theme-option" role="menuitemradio" data-theme-option="light" aria-checked="true"><span class="theme-swatch light-swatch"></span><span>Light</span><span class="theme-check"></span></button>
+                <button type="button" class="theme-option" role="menuitemradio" data-theme-option="gray" aria-checked="false"><span class="theme-swatch gray-swatch"></span><span>Gray</span><span class="theme-check"></span></button>
+                <button type="button" class="theme-option" role="menuitemradio" data-theme-option="dark" aria-checked="false"><span class="theme-swatch dark-swatch"></span><span>Dark</span><span class="theme-check"></span></button>
+              </div>
+            </div>
+            <button class="icon-button notification-button" id="notifications-button" type="button" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+            </button>
+            <span class="topbar-divider"></span>
+            <button class="topbar-profile" id="profile-button" type="button" aria-label="Profile">
+              <span class="profile-avatar">YO</span>
+              <span class="profile-label">Your account</span>
+              <svg class="profile-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4"/></svg>
+            </button>
+          </div>
+        </header>
+        <main class="page-content" id="page-content" tabindex="-1"></main>
+        <footer class="page-footer">
+          <span>Haulflow <span class="footer-dot">·</span> Transport workspace</span>
+          <span class="local-note"><span class="local-dot"></span> Data stays in this browser</span>
+        </footer>
+      </div>
+    </div>
+    <div id="modal-root"></div>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

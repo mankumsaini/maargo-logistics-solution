@@ -1,0 +1,9 @@
+{
+  "name": "haulflow-tms-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A frontend-only transport management dashboard",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
